@@ -20,8 +20,8 @@
 
 package org.apache.directory.api.ldap.model.password;
 
-
 import static org.apache.directory.api.ldap.model.constants.LdapSecurityConstants.HASH_METHOD_CRYPT;
+import static org.apache.directory.api.ldap.model.constants.LdapSecurityConstants.HASH_METHOD_CRYPT_BCRYPT;
 import static org.apache.directory.api.ldap.model.constants.LdapSecurityConstants.HASH_METHOD_CRYPT_MD5;
 import static org.apache.directory.api.ldap.model.constants.LdapSecurityConstants.HASH_METHOD_CRYPT_SHA256;
 import static org.apache.directory.api.ldap.model.constants.LdapSecurityConstants.HASH_METHOD_CRYPT_SHA512;
@@ -36,6 +36,7 @@ import static org.apache.directory.api.ldap.model.constants.LdapSecurityConstant
 import static org.apache.directory.api.ldap.model.constants.LdapSecurityConstants.HASH_METHOD_SSHA256;
 import static org.apache.directory.api.ldap.model.constants.LdapSecurityConstants.HASH_METHOD_SSHA384;
 import static org.apache.directory.api.ldap.model.constants.LdapSecurityConstants.HASH_METHOD_SSHA512;
+import static org.apache.directory.api.ldap.model.password.PasswordUtil.CRYPT_BCRYPT_LENGTH;
 import static org.apache.directory.api.ldap.model.password.PasswordUtil.CRYPT_LENGTH;
 import static org.apache.directory.api.ldap.model.password.PasswordUtil.CRYPT_MD5_LENGTH;
 import static org.apache.directory.api.ldap.model.password.PasswordUtil.CRYPT_SHA256_LENGTH;
@@ -55,7 +56,6 @@ import static org.junit.Assert.assertTrue;
 import org.apache.directory.api.ldap.model.constants.LdapSecurityConstants;
 import org.apache.directory.api.util.Strings;
 import org.junit.Test;
-
 
 /**
  * A test for the PasswordUtil class.
@@ -348,8 +348,26 @@ public class PasswordUtilTest
     }
 
 
-    private void testPassword( String plainText, String encrypted, LdapSecurityConstants algorithm, int passwordLength,
-        int saltLength )
+    @Test
+    public void testPasswordCRYPT2aEncrypted()
+    {
+        testPassword( "secret",
+            "{CRYPT}$2a$06$LH2xIb/TZmajuLJGDNuegeeY.SCwkg6YAVLNXTh8n4Xfb1uwmLXg6",
+            HASH_METHOD_CRYPT_BCRYPT, CRYPT_BCRYPT_LENGTH, 29 );
+    }
+
+
+    @Test
+    public void testPasswordCRYPT2aEncryptedLowercase()
+    {
+        testPassword( "secret",
+            "{crypt}$2a$06$LH2xIb/TZmajuLJGDNuegeeY.SCwkg6YAVLNXTh8n4Xfb1uwmLXg6",
+            HASH_METHOD_CRYPT_BCRYPT, CRYPT_BCRYPT_LENGTH, 29 );
+    }
+
+
+    private void testPassword(String plainText, String encrypted, LdapSecurityConstants algorithm, int passwordLength,
+                              int saltLength )
     {
         // assert findAlgorithm
         assertEquals( algorithm, PasswordUtil.findAlgorithm( Strings.getBytesUtf8( encrypted ) ) );
