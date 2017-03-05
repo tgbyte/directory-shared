@@ -62,4 +62,7 @@
 
     <!-- Exclude Antlr generated sources -->
     <suppress files="[\\/]generated-sources[\\/]" checks="[a-zA-Z0-9]*"/>
+
+    <!-- Exclude vendored 3rd-party sources -->
+    <suppress files="org.apache.directory.api.ldap.model.password.digest.BCrypt" checks="[a-zA-Z0-9]*"/>
 </suppressions>

@@ -593,12 +593,6 @@
       </dependency>
 
       <dependency>
-        <groupId>org.mindrot</groupId>
-        <artifactId>jbcrypt</artifactId>
-        <version>0.4</version>
-      </dependency>
-
-      <dependency>
         <groupId>xml-apis</groupId>
         <artifactId>xml-apis</artifactId>
         <version>${xml.apis.version}</version>

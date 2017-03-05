@@ -34,11 +34,11 @@ import javax.crypto.spec.PBEKeySpec;
 
 import org.apache.commons.codec.digest.Crypt;
 import org.apache.directory.api.ldap.model.constants.LdapSecurityConstants;
+import org.apache.directory.api.ldap.model.password.digest.BCrypt;
 import org.apache.directory.api.util.Base64;
 import org.apache.directory.api.util.DateUtils;
 import org.apache.directory.api.util.Strings;
 
-import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * A utility class containing methods related to processing passwords.
